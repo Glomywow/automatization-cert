@@ -1,6 +1,7 @@
-$PathToCfgFile = "C:\Service\RemoteApp\1C-Base\ibases_004.v8i"
+$PathToCfgFile = "C:\Service\RemoteApp\1C-Base\ibases_032.v8i"
 #$PathToTrusted = "C:\Service\RemoteApp\TrustedSites.exe"
 $PathTo1CExe = "C:\Program Files (x86)\1cv8\common\1cestart.exe"
+
 function Delaftercert {
 $user = $env:UserName
 $Name = (cmd /c 'C:\Program Files\Crypto Pro\CSP\csptest.exe' -keyset -enum_cont -verifycontext -fqcn)
@@ -24,12 +25,9 @@ $alldatacert =cmd /c certmgr.exe -list -cont $key
 }
 
 }
-
-
 if (!(test-path ($Env:APPDATA + '\1C\1CEStart\'))) { New-Item ($env:APPDATA + '\1C\1CEStart\') -type directory }
 if (!(Test-Path ($Env:APPDATA + '\1C\1CEStart\ibases.v8i'))) { New-Item -Name ibases.v8i -Path ($Env:APPDATA + '\1C\1CEStart\') -ItemType File }
 Copy-Item $PathToCfgFile ($Env:APPDATA + '\1C\1CEStart\ibases.v8i') -Force
-
-
-Start-Process -FilePath $PathTo1CExe
 Delaftercert
+#Start-Process -FilePath $PathToTrusted
+Start-Process -FilePath $PathTo1CExe
